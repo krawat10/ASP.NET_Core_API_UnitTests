@@ -1,0 +1,45 @@
+﻿@model LAB4_150348.ViewModels.GroupViewModel
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Delete</h1>
+
+<h3>Group and search</h3>
+<div>
+    <h4>Book</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.BooksAmount)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.BooksAmount)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AveragePrice)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AveragePrice)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.UniqueAuthors)
+        </dt>
+        <dd class="col-sm-10">
+            @foreach (var author in Model.UniqueAuthors)
+            {
+                <span class="badge">@author</span>
+            }
+        </dd>
+
+    </dl>
+    
+    <partial name="_Books" model="@Model.Books"/>
+
+    <form asp-action="Group">
+        <input name="keyword" />
+        <input type="submit" value="Search" class="btn btn-danger" />
+    </form>
+</div>

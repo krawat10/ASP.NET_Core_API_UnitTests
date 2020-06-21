@@ -1,0 +1,63 @@
+﻿@using LAB4_150348.ViewModels
+@model DataAccess.Models.Order
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Create</h1>
+
+<h4>Order</h4>
+<hr/>
+<div>
+    <h4>Order</h4>
+    <hr/>
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Created)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Created)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TotalPrice)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TotalPrice)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IsFinished)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IsFinished)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.BookOrders)
+        </dt>
+        <dd class="col-sm-10">
+            @foreach (var order in Model.BookOrders)
+            {
+                <p>@order.Book.Title - @order.Book.Author - @order.BookAmount x @order.Book.Price</p>
+            }
+        </dd>
+        <dd>
+            <form asp asp-action="Submit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input asp-for="Id" type="hidden"/>
+                <div class="form-group">
+                    <input type="submit" value="Submit Order" class="btn btn-primary"/>
+                </div>
+            </form>
+        </dd>
+    </dl>
+</div>
+
+<div>
+    <partial model="@(new BookOrderViewModel {OrderId = Model.Id})" name="_BookOrder"/>
+</div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}
